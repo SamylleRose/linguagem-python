@@ -1,20 +1,18 @@
-lista_valore = []
+lista_values = []
 
 for c in range(0, 5):
-    lista_valore.append(int(input('Digite o valor {}: '. format(c + 1 ))))
+    lista_values.append(int(input('Digite o valor {}: '. format(c + 1 ))))
 
-verificar_maior = lista_valore[0]
-verificar_menor = lista_valore[0]
-# posicao_maior = 1
-# posicao_menor = 1
+check_bigger = lista_values[0]
+check_minor = lista_values[0]
 
 for c in range(5):
-    if verificar_maior < lista_valore[c]:
-        verificar_maior = lista_valore[c]
+    if check_bigger < lista_values[c]:
+        check_bigger = lista_values[c]
         posicao_maior = c 
 
-    if verificar_menor > lista_valore[c]:
-        verificar_menor = lista_valore[c]
+    if check_minor > lista_values[c]:
+        check_minor = lista_values[c]
         posicao_menor = c
 
-print('O numero maior na lista é {} e esta na posição {}, o menor numero é {} e esta na posição {}'. format(verificar_maior, posicao_maior, verificar_menor, posicao_menor))
+print('O numero maior na lista é {} e esta na posição {}, o menor numero é {} e esta na posição {}'. format(check_bigger, posicao_maior, check_minor, posicao_menor))
