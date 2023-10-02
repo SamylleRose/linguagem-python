@@ -5,5 +5,5 @@ for b in range(1,11):
         print(f'{b} x {c} = {multiplier}')
 
     print('=' * 12)
-    print('\n')
+    print('')
     
