@@ -1,3 +1,3 @@
-a = set('aviao')
+a = set("aviao")
 
 print(a)
