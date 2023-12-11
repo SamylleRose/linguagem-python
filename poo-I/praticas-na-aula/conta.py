@@ -34,7 +34,7 @@ class Conta:
         else:
             print(f"Não é possivel sacar! valor negativo!")
 
-    def transferir(self, titular, destino, valor):
+    def transferir(self, destino, valor):
         if valor <= 0:
             print("valor negativo!")
 
@@ -42,7 +42,10 @@ class Conta:
             self.saldo -= valor
             destino.saldo += valor
             self.historico.add_transacao(
-                f"Transferencia para {titular} de R${valor} realizada com sucesso!"
+                f"Transferencia para {destino.titular.nome} de R${valor} realizada com sucesso!"
+            )
+            destino.historico.add_transacao(
+                f"Transferencia recebida de {self.titular.nome} de R${valor}!"
             )
             print("Transferencia realizada com sucesso!")
         else:
@@ -53,12 +56,12 @@ class Conta:
 
 
 class Cliente:
-    def __init__(self, titular, cpf) -> None:
-        self.titular = titular
+    def __init__(self, nome, cpf) -> None:
+        self.nome = nome
         self.cpf = cpf
 
     def imprimir_cliente(self):
-        print(f"cliente: {self.titular}")
+        print(f"cliente: {self.nome}")
         print(f"CPF: {self.cpf}")
 
 
@@ -80,7 +83,7 @@ class Historico:
 cliente01 = Cliente("samylle", "243324")
 cliente02 = Cliente("pedro", "1232143")
 
-cliente01_conta = Conta(cliente01, 2000)
+cliente01_conta = Conta(Cliente("samylle", "243324"), 2000)
 cliente02_conta = Conta(cliente02, 3000)
 
 # depositar
@@ -104,7 +107,7 @@ valor_de_transferencia = float(
     input("Digite o valor para a tranferencia da conta 1 para a conta 2: ")
 )
 
-cliente01_conta.transferir(cliente02.titular, cliente02_conta, valor_de_transferencia)
+cliente01_conta.transferir(cliente02_conta, valor_de_transferencia)
 cliente01_conta.extrato()
 print("\n")
 cliente02_conta.extrato()
