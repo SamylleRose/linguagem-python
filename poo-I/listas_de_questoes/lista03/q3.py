@@ -1,24 +1,3 @@
-# Crie uma classe denominada Elevador para armazenar as informações de um elevador dentro de um prédio. A
-# classe deve armazenar o andar atual (térreo = 0), total de andares no prédio (desconsiderando o térreo),
-# capacidade do elevador e quantas pessoas estão presentes nele. A classe deve também disponibilizar os
-# seguintes métodos:
-
-# a. Inicializa: que deve receber como parâmetros a capacidade do elevador e o total de andares no prédio
-# (os elevadores sempre começam no térreo e vazio);
-
-# b. Entra: para acrescentar uma pessoa no elevador (só deve acrescentar se ainda houver espaço);
-
-# c. Sai: para remover uma pessoa do elevador (só deve remover se houver alguém dentro dele);
-
-# d. Sobe: para subir um andar (não deve subir se já estiver no último andar);
-
-# e. Desce: para descer um andar (não deve descer se já estiver no térreo);
-
-# f. Encapsular todos os atributos da classe (atributos privados e criar os métodos set e get).
-
-# g. Criar um menu iterativo para controlar as operações do elevador.
-
-
 class Elevador:
     def __init__(self) -> None:
         self._andar_atual = 0
@@ -58,23 +37,18 @@ class Elevador:
     def quantidade_pessoas(self, quantidade_pessoas):
         self._quantidade_pessoas = quantidade_pessoas
 
-    # a. Inicializa: que deve receber como parâmetros a capacidade do elevador e o total de andares no prédio
-    # (os elevadores sempre começam no térreo e vazio);
     def inicializar(self, capacidade_elevador, total_andares_predio):
         self._andar_atual = 0
         self._quantidade_pessoas = 0
         self._capacidade_elevador = capacidade_elevador
         self._total_andares_predio = total_andares_predio
 
-    # b. Entra: para acrescentar uma pessoa no elevador (só deve acrescentar se ainda houver espaço);
     def entrar(self):
         if self._quantidade_pessoas == self._capacidade_elevador:
             print("\nCapacidade do elevador chegou no máximo.\n")
 
         else:
             self._quantidade_pessoas += 1
-
-    # c. Sai: para remover uma pessoa do elevador (só deve remover se houver alguém dentro dele);
 
     def sair(self):
         if self._quantidade_pessoas == 0:
@@ -83,16 +57,12 @@ class Elevador:
         else:
             self._quantidade_pessoas -= 1
 
-    # d. Sobe: para subir um andar (não deve subir se já estiver no último andar);
-
     def subir(self):
         if self._andar_atual == self._total_andares_predio:
             print("\nNão é possivel subir, você está no ultimo andar.\n")
 
         else:
             self._andar_atual += 1
-
-    # e. Desce: para descer um andar (não deve descer se já estiver no térreo);
 
     def descer(self):
         if self._andar_atual == 0:
