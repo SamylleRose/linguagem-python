@@ -4,11 +4,22 @@ from random import choice
 from history import History
 from client import Client
 from account import CurrentAccount, SavingsAccount, LifeInsurance
+from taxation import Taxation
+
+Taxation.register(CurrentAccount)
+Taxation.register(LifeInsurance)
+
+taxation_classes = [CurrentAccount, LifeInsurance]
+
+for taxation_class in taxation_classes:
+    if not hasattr(taxation_class, "calculate_taxation"):
+        raise Exception("Interface not implemented")
 
 
 class Bank:
     account_numbers = [str(number).zfill(4) for number in range(0, 10000)]
     total_accounts = 0
+    taxations = []
 
     def __init__(self):
         self._clients = []
@@ -73,12 +84,12 @@ class Bank:
         return result
 
     @staticmethod
-    def float_input():
+    def float_input(message="\nDigite um valor: "):
         float_input = None
         while float_input == None:
 
             try:
-                number = float(input("\nDigite um valor: "))
+                number = float(input(message))
 
                 float_input = number
             except Exception as e:
@@ -139,7 +150,7 @@ class Bank:
     def create_life_insurance(self):
         cpf = input("Digite seu CPF: ")
 
-        value = Bank.float_input()
+        value = Bank.float_input("Digite o valor total do seguro: ")
         index = self.get_client_index_by_cpf(cpf)
 
         if self.cpf_already_exists(cpf):
@@ -149,7 +160,19 @@ class Bank:
             print("\nEste CPF não existe!\n")
 
     def calculate_taxation(self):
-        pass
+        taxation = float(0)
+
+        for client in self.clients:
+            if client.current_account != None:
+                taxation += client.current_account.calculate_taxation()
+
+            for life_insurance in client.life_insurance:
+                taxation += life_insurance.calculate_taxation()
+
+        Bank.taxations.append(taxation)
+
+        for index, t in enumerate(Bank.taxations):
+            print(f"{index + 1} tributação = {t:.2f}")
 
     def draw(self):
         cpf = input("Digite o CPF da conta que deseja sacar: ")

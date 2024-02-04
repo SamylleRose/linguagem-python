@@ -96,6 +96,9 @@ class CurrentAccount(Account):
             f"Tranferência recebida de R$ {value:.2f} da conta {self.number}"
         )
 
+    def calculate_taxation(self):
+        return float(self.balance * 0.01)  # 1% of balance
+
 
 class SavingsAccount(Account):
     def __init__(self, number, balance, history) -> None:
@@ -149,10 +152,13 @@ class SavingsAccount(Account):
 
 
 class LifeInsurance:
-    def __init__(self, monthly_value) -> None:
-        self._monthly_value = monthly_value
-        self.total_value = 5000
+    def __init__(self, total_value) -> None:
+        self._total_value = total_value
+        self._monthly_value = (total_value / 24) + (total_value * 0.1)
 
     @property
     def monthly_value(self):
         return self._monthly_value
+
+    def calculate_taxation(self):
+        return float(self.monthly_value * 0.02)  # 2% of monthly_value
